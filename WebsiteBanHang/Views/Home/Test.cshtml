@@ -1,0 +1,16 @@
+﻿@model WebsiteBanHang.Context.Nguoidung
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var u = Session["use"] as WebsiteBanHang.Context.Nguoidung;
+    }
+
+@{ if (u != null)
+    {
+
+    <h2>Xin chào : @u.Email</h2>
+    @Html.ActionLink("Đăng xuất", "DangXuat", "Home") }
+
+                    <div> </div> 
+               }
+

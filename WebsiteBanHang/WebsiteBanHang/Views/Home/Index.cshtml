@@ -1,0 +1,122 @@
+﻿@model WebsiteBanHang.Models.HomeModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <!-- ========================= SECTION MAIN  ========================= -->
+    <section class="section-main padding-y">
+        <main class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <aside class="col-lg col-md-3 flex-lg-grow-0">
+                        <h6>Danh mục</h6>
+                        <nav class="nav-home-aside">
+                            <ul class="menu-category">
+                                @foreach (var item in Model.ListHangsanxuat)
+                                {
+                                <li>
+                                    @Html.ActionLink(item.Tenhang, "Index", "ListSanpham", new { @Mahang = item.Mahang }, null)
+                                </li>
+                                }
+                            </ul>
+                        </nav>
+                    </aside> <!-- col.// -->
+                    <div class="col-md-9 col-xl-7 col-lg-7">
+
+                        <!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
+                        <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel1_indicator" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="1"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="2"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="3"></li>                                                         
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <a href="https://localhost:44331/ListSanpham?Mahang=1"</a>
+                                    <img src="~/images/banner.jpeg" alt="First slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://localhost:44331/ListSanpham?Mahang=2"</a>
+                                    <img src="~/images/banner2.jpg" alt="Third slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://localhost:44331/ListSanpham?Mahang=3"</a>
+                                    <img src="~/images/banner%204.jpg" alt="four slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://localhost:44331/ListSanpham?Mahang=4"</a>
+                                    <img src="~/images/banner3.png" alt="Third slide">
+                                </div>                            
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel1_indicator" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- ==================  COMPONENT SLIDER BOOTSTRAP end.// ==================  .// -->
+
+                    </div> <!-- col.// -->
+                    <div class="col-md d-none d-lg-block flex-grow-1">
+                        <aside class="special-home-right">
+                            <h6 class="bg-blue text-center text-white mb-0 p-2">Sản phẩm mới</h6>
+
+                            @foreach (var item in Model.ListSanpham.Where(n => n.Sanphammoi == true).Take(3))
+                            {
+                        <div class="card-banner border-bottom">
+                            <a href="@Url.Action("Detail","Product", new {@Masp=item.Masp })">
+                                <div class="py-3" style="width:80%">
+                                    <h6 class="card-title">@item.Tensp</h6>
+                                    <img src="~/images/@item.Anhbia" height="80" class="img-bg">
+                                    <a href="#" class="btn btn-secondary btn-sm"> Mua Hàng </a>
+                                </div>
+                            
+                            </a>
+                        </div>
+                            }
+                        </aside>
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+
+            </div> <!-- card-body.// -->
+        </main> <!-- card.// -->
+
+    </section>
+    <!-- ========================= SECTION MAIN END// ========================= -->
+    <!-- =============== SECTION ITEMS =============== -->
+    <section class="padding-bottom-sm">
+
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">Điện thoại</h4>
+        </header>
+
+        <div class="row row-sm">
+            @foreach (var item in Model.ListSanpham.Take(20))
+            {
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                    <div href="#" class="card card-sm card-product-grid">
+                        <a href="@Url.Action("Detail","Product", new { Masp = item.Masp} )" class="img-wrap"> <img src="~/images/@item.Anhbia"> </a>
+                        <figcaption class="info-wrap">
+                            <a href="#" class="title">@item.Tensp</a>
+                            <div class="price mt-1">@String.Format("{0:0,0}", @item.Giatien)</div> <!-- price-wrap.// -->
+                        </figcaption>
+                    </div>
+                </div>
+            }
+            <!-- col.// -->
+
+        </div> <!-- row.// -->
+    </section>
+
+    
+    <!-- =============== SECTION ITEMS .//END =============== -->
+</div>
+<!-- container end.// -->
+<!-- ========================= FOOTER ========================= -->

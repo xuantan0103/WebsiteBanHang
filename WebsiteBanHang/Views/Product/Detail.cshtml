@@ -1,0 +1,74 @@
+﻿@using WebsiteBanHang.Context
+@model Sanpham
+@{
+    ViewBag.Title = "Detail";
+}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<h2>CHI TIẾT SẢN PHẨM</h2>
+
+<section class="product">
+    <div class="container">
+        <div class="product-content row">
+            <div class="product-content-left row">
+                <div class="product-content-left-big-img">
+                    <img src="~/images/@Model.Anhbia" alt="Điện thoại">
+                </div>
+            </div>
+            <div class="product-content-right">
+                <div class="product-content-right-product-name">
+                    <h1>Tên sản phẩm: <span>@Model.Tensp</span></h1>
+
+
+                </div>
+                <div class="product-content-right-product-price">
+                    <p>Giá : @String.Format("{0:0,0}", @Model.Giatien)<sup>đ</sup></p>
+                </div>
+                <div class="product-content-right-product-price">
+                    <p>Thẻ sim : @Model.Thesim</p>
+                </div>
+                <div class="product-content-right-product-price">
+                    <p>Bộ nhớ trong : @Model.Ram GB</p>
+                </div>
+                <div class="product-content-right-product-price">
+                    <p>Bộ nhớ trong : @Model.Bonhotrong GB</p>
+                </div>
+                @using (Html.BeginForm("ThemGioHang", "Giohang", new { @iMasp = Model.Masp, @strURL = Request.Url.ToString() }))
+                {
+        <div class="product-content-right-product-button">
+            <input type="hidden" value="Thêm vào giỏ hàng" id="bgnGioHang" />
+            <button><i class="fas fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+
+        </div>}
+
+
+            <div class="product-content-right-bottom ">
+                <div class="product-content-right-bottom-top">
+                    <span>&#8744;</span>
+                </div>
+                <div class="product-content-right-bottom-content-big">
+                    <div class="product-content-right-bottom-content">
+                        <div class="product-content-right-bottom-content-title row">
+                            <div class="product-content-right-bottom-content-title-item mota">
+                                <p>Mô tả</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="product-content-right-bottom-content row">
+                        <div class="product-content-right-bottom-content-mota">
+                            <span>
+                                @Model.Mota
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

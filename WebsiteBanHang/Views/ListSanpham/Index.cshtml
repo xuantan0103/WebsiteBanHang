@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<Sanpham>
+@using PagedList.Mvc;
+@using WebsiteBanHang.Context
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="section-content padding-y">
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <article class="card card-product-list">
+                <div class="row no-gutters">
+                    <aside class="col-md-3">
+                        <a href="@Url.Action("Detail","Product", new { Masp = item.Masp} )" class="img-wrap">
+                            <img src="~/images/@item.Anhbia">
+                        </a>
+                    </aside> <!-- col.// -->
+                    <div class="col-md-6">
+                        <div class="info-main">
+                            <a href="@Url.Action("Detail","Product", new { Masp = item.Masp} )" class="h5 title"> @item.Tensp</a>
+                            <p>
+                                Mô tả: @item.Mota
+                            </p>
+
+                        </div> <!-- info-main.// -->
+                    </div> <!-- col.// -->
+                    <aside class="col-sm-3">
+                        <div class="info-aside">
+                            <div class="price-wrap">
+                                <span class="h5 price">Giá: @String.Format("{0:0,0}", @item.Giatien)</span>
+                            </div> <!-- price-wrap.// -->
+                            @using (Html.BeginForm("ThemGioHang", "Giohang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() }))
+                            {
+                                <div class="product-content-right-product-button">
+                                    <input type="hidden" value="Thêm vào giỏ hàng" id="bgnGioHang" />
+                                    <button><i class="fas fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+
+                                </div>}
+                        </div> <!-- info-aside.// -->
+                    </aside> <!-- col.// -->
+                </div> <!-- row.// -->
+            </article>
+        }
+    </div>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+     new { page }))
+</section>
